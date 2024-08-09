@@ -29,7 +29,7 @@ services:
         container_name: my_nginx
         restart: unless-stopped
         ports:
-            - "82:80"
+            - "2006:80"
         volumes:
             - ./nginx.conf:/etc/nginx/conf.d/default.conf
             - ./:/var/www
