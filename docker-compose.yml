@@ -53,8 +53,6 @@ services:
             MYSQL_PASSWORD: laravel
         volumes:
             - dbdata:/var/lib/mysql
-        ports:
-            - "3308:3306"
         networks:
             - laravel
     node:
@@ -71,8 +69,5 @@ volumes:
     dbdata:
     appfiles:
 
-
 networks:
     laravel:
-
-
