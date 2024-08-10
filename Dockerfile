@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y \
 	&& docker-php-ext-configure gd --with-freetype --with-jpeg \
 	&& docker-php-ext-install gd pdo pdo_mysql
 
-RUN apt-get install -y nodejs npm
+# RUN apt-get install -y nodejs npm
 
 # Install Composer
 COPY --from=composer:2.5 /usr/bin/composer /usr/bin/composer
@@ -27,8 +27,8 @@ COPY --from=composer:2.5 /usr/bin/composer /usr/bin/composer
 # COPY . .
 COPY --chown=www-data:www-data . /var/www
 RUN composer install --no-dev --optimize-autoloader --no-interaction
-RUN npm i
-RUN npm run build
+# RUN npm i
+# RUN npm run build
 
 # Change current user to www
 RUN chown -R www-data:www-data ./public/*

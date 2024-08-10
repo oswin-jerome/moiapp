@@ -19,8 +19,9 @@ services:
             - DB_HOST=my_mysql
             - DB_PORT=3306
             - DB_DATABASE=laravel
-            - DB_USERNAME=root
-            - DB_PASSWORD=root
+            - DB_USERNAME=laravel
+            - DB_PASSWORD=laravel
+            - SESSION_DRIVER=file
         networks:
             - laravel
         depends_on:
@@ -51,23 +52,23 @@ services:
             MYSQL_USER: laravel
             MYSQL_PASSWORD: laravel
         volumes:
-            - dbdata2:/var/lib/mysql
+            - dbdata:/var/lib/mysql
+        ports:
+            - "3308:3306"
         networks:
             - laravel
-        ports:
-            - "3307:3306"
-    # node:
-    #     image: node:18
-    #     container_name: node_container
-    #     working_dir: /var/www
-    #     volumes:
-    #         - ./:/var/www
-    #     command: sh -c "npm install && npm run build"
-    #     networks:
-    #         - laravel
+    node:
+        image: node:18
+        container_name: node_container
+        working_dir: /var/www
+        volumes:
+            - appfiles:/var/www
+        command: sh -c "npm install && npm run build"
+        networks:
+            - laravel
 
 volumes:
-    dbdata2:
+    dbdata:
     appfiles:
 
 
