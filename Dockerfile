@@ -31,7 +31,7 @@ RUN npm install
 RUN npm run build
 
 # Change the ownership of our applications
-RUN chown -R www-data:www-data /var/www
+# RUN chown -R www-data:www-data /var/www
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
