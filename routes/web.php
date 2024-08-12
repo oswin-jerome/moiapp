@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::get("events/{event}/report", [EventController::class, "report"])->name("event.report");
     Route::get("events/{event}/report-pdf", [EventController::class, "reportPdf"])->name("event.report.pdf");
     Route::resource("events/{event}/gifts", GiftController::class);
+    Route::get("events/{event}/gifts/{gift}/rec-pdf", [GiftController::class, "pdf"])->name("gift.rec.pdf");
 });
 
 require __DIR__ . '/auth.php';

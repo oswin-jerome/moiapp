@@ -6,6 +6,7 @@ use App\Http\Requests\StoreGiftRequest;
 use App\Http\Requests\UpdateGiftRequest;
 use App\Models\Event;
 use App\Models\Gift;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -42,17 +43,20 @@ class GiftController extends Controller
      */
     public function store(Event $event, StoreGiftRequest $request)
     {
-        $event->gifts()->create($request->validated());
+        $gift = $event->gifts()->create($request->validated());
 
-        return back();
+        return redirect()->route("gifts.show", [$event, $gift]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Gift $gift)
+    public function show(Event $event, Gift $gift)
     {
-        //
+        return Inertia::render("Events/GiftPdf", [
+            "gift" => $gift,
+            "event" => $event
+        ]);
     }
 
     /**
@@ -77,5 +81,16 @@ class GiftController extends Controller
     public function destroy(Gift $gift)
     {
         //
+    }
+
+    public function pdf(Event $event, Gift $gift, Request $request)
+    {
+
+        $pdf =
+            $pdf = Pdf::loadView('pdf.recipt', [
+                "event" => $event,
+                "gift" => $gift
+            ]);
+        return $pdf->stream();
     }
 }

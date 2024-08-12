@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Head, Link, router, useForm, usePage } from "@inertiajs/react";
 import { Event, PageProps } from "@/types";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
@@ -27,11 +27,15 @@ export default function ShowEvent({
         gifted_to: "",
     });
 
+    const page = usePage();
+
     const handle = (e: FormEvent) => {
         e.preventDefault();
+        // router.post(route("gifts.store", event.id),data,);
         post(route("gifts.store", event.id), {
-            onSuccess: () => {
+            onSuccess: (e: any) => {
                 alert("Inserted");
+
                 reset();
             },
         });
@@ -49,7 +53,10 @@ export default function ShowEvent({
                         <Link href={route("gifts.index", event.id)}>
                             <PrimaryButton>View Gifts</PrimaryButton>
                         </Link>
-                        <Link href={route("event.report", event.id)}>
+                        <Link
+                            href={route("event.report", event.id)}
+                            target="__blank"
+                        >
                             <PrimaryButton>View Report</PrimaryButton>
                         </Link>
                     </div>

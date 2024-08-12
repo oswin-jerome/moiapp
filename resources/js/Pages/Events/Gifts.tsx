@@ -89,6 +89,7 @@ export default function Dashboard({
                                     <TableHead className="text-right">
                                         Amount
                                     </TableHead>
+                                    <TableHead>Actions</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
@@ -109,6 +110,16 @@ export default function Dashboard({
                                             </TableCell>
                                             <TableCell className="text-right">
                                                 {gift.amount}
+                                            </TableCell>
+                                            <TableCell>
+                                                <Link
+                                                    href={route("gifts.show", [
+                                                        event.id,
+                                                        gift.id,
+                                                    ])}
+                                                >
+                                                    Print PDF
+                                                </Link>
                                             </TableCell>
                                         </TableRow>
                                     );
